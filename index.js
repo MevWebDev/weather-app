@@ -37,15 +37,17 @@ function processData(data) {
 function processDailyData(data) {
   const processedData = {
     dayName: dateToDay(new Date(data.datetime)),
+    minTemp: data.tempmin,
     temp: data.temp,
     feelsLike: data.feelslike,
   };
+
   return processedData;
 }
 async function getWeatherData(metric = "metric") {
   try {
     const response = await fetch(
-      `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/gdansk?unitGroup=${metric}&key=PEMYDAUJ7DTAG9KNEWKLR4DX5&contentType=json`,
+      `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/tokyo?unitGroup=${metric}&key=PEMYDAUJ7DTAG9KNEWKLR4DX5&contentType=json`,
       { mode: "cors" }
     );
     const data = await response.json();
@@ -89,7 +91,7 @@ function displayLeft(data) {
     } else {
       currentMetric = "metric";
     }
-    console.log(`currentMetric: ${currentMetric}`);
+
     const newData = await getWeatherData(currentMetric);
     displaySite(newData);
   });
@@ -142,7 +144,7 @@ function displayRight(data) {
   );
 }
 
-function dayDiv(dayName, temp, icon) {
+function dayDiv(dayName, temp, minTemp, icon) {
   const day = document.createElement("div");
   day.classList.add("day");
   const dayNameElement = document.createElement("h3");
@@ -153,6 +155,12 @@ function dayDiv(dayName, temp, icon) {
     currentMetric === "metric" ? "°C" : "°F"
   }`;
   day.appendChild(dayTemperature);
+
+  const dayMinTemperature = document.createElement("p");
+  dayMinTemperature.textContent = `${minTemp}${
+    currentMetric === "metric" ? "°C" : "°F"
+  }`;
+  day.appendChild(dayMinTemperature);
   const dayIcon = document.createElement("i");
   dayIcon.classList.add("fas", icon);
   day.appendChild(dayIcon);
@@ -168,7 +176,7 @@ function displayDaily(data) {
 
   const processedDays = slicedDays.map((day) => processDailyData(day));
   processedDays.forEach((day) => {
-    const dayElement = dayDiv(day.dayName, day.temp, day.icon);
+    const dayElement = dayDiv(day.dayName, day.temp, day.minTemp, day.icon);
     botList.appendChild(dayElement);
   });
 }
