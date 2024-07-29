@@ -1,0 +1,1 @@
+var franek = "franek";
