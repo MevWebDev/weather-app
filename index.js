@@ -110,8 +110,10 @@ function displaymain(data) {
 function rigthElement(icon, title, value) {
   const details = document.querySelector(".details");
   const element = document.createElement("div");
+  element.classList.add("detail-element");
 
   const text = document.createElement("div");
+  text.classList.add("text");
 
   const titleElement = document.createElement("p");
   titleElement.textContent = title;
@@ -159,16 +161,11 @@ function dayDiv(dayName, temp, minTemp, icon) {
   dayNameElement.textContent = dayName;
   day.appendChild(dayNameElement);
   const dayTemperature = document.createElement("p");
-  dayTemperature.textContent = `${temp}${
+  dayTemperature.textContent = ` ${temp}${
     currentMetric === "metric" ? "°C" : "°F"
-  }`;
+  } -> ${minTemp}${currentMetric === "metric" ? "°C" : "°F"}`;
   day.appendChild(dayTemperature);
 
-  const dayMinTemperature = document.createElement("p");
-  dayMinTemperature.textContent = `${minTemp}${
-    currentMetric === "metric" ? "°C" : "°F"
-  }`;
-  day.appendChild(dayMinTemperature);
   const dayIcon = document.createElement("i");
   dayIcon.classList.add("fas", icon);
   day.appendChild(dayIcon);
@@ -177,24 +174,25 @@ function dayDiv(dayName, temp, minTemp, icon) {
 }
 
 function displayDaily(data) {
-  const botList = document.querySelector("#bot-list");
-  botList.innerHTML = "";
+  const forecast = document.querySelector(".forecast");
+  forecast.innerHTML = "";
   const { days } = data;
   const slicedDays = days.slice(1, 7);
 
   const processedDays = slicedDays.map((day) => processDailyData(day));
   processedDays.forEach((day) => {
-    const dayElement = dayDiv(day.dayName, day.temp, day.minTemp, day.icon);
-    botList.appendChild(dayElement);
+    const dayElement = dayDiv(day.dayName, day.minTemp, day.temp, day.icon);
+    forecast.appendChild(dayElement);
   });
 }
 
 function displayForecast(data) {
   const processedData = processData(data);
-  const forecast = document.querySelector(".forecast");
-  forecast.innerHTML = "";
-  const title = document.createElement("p");
+  const botList = document.querySelector("#bot-list");
+  botList.innerHTML = "";
+  const title = document.querySelector(".title");
   title.textContent = processedData.description;
+
   const currentHour = new Date().getHours().toLocaleString();
   const hours = processedData.hours.filter((hour) => {
     const hourNumber = Number(hour.datetime.split(":")[0]);
@@ -217,10 +215,12 @@ function displayForecast(data) {
     hourDiv.appendChild(icon);
 
     const temp = document.createElement("p");
-    temp.textContent = hour.temp;
+    temp.textContent = `${hour.temp}${
+      currentMetric === "metric" ? "°C" : "°F"
+    }`;
     hourDiv.appendChild(temp);
 
-    forecast.appendChild(hourDiv);
+    botList.appendChild(hourDiv);
   });
 }
 
