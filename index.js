@@ -17,6 +17,7 @@ function processData(data) {
   const hours = String(now.getHours()).padStart(2, "0");
   const minutes = String(now.getMinutes()).padStart(2, "0");
   const currentTime = `${hours}:${minutes}`;
+
   const processedData = {
     currentCondition: data.currentConditions.conditions,
     city: data.address,
@@ -29,6 +30,10 @@ function processData(data) {
     windSpeed: data.currentConditions.windspeed,
     sunrise: data.currentConditions.sunrise,
     sunset: data.currentConditions.sunset,
+    minTemp: data.days[0].tempmin,
+    maxTemp: data.days[0].tempmax,
+    description: data.description,
+    hours: data.days[0].hours,
   };
 
   return processedData;
@@ -38,6 +43,7 @@ function processDailyData(data) {
   const processedData = {
     dayName: dateToDay(new Date(data.datetime)),
     minTemp: data.tempmin,
+    maxTemp: data.tempmax,
     temp: data.temp,
     feelsLike: data.feelslike,
   };
@@ -57,29 +63,31 @@ async function getWeatherData(metric = "metric") {
     console.log(error);
   }
 }
-function displayLeft(data) {
+function displaymain(data) {
   const processedData = processData(data);
-  const left = document.querySelector(".left");
-  left.innerHTML = "";
-
-  const condition = document.createElement("h3");
-  condition.textContent = processedData.currentCondition;
-  left.appendChild(condition);
+  const mainDiv = document.querySelector(".main");
+  mainDiv.innerHTML = "";
 
   const city = document.createElement("p");
   city.textContent =
     processedData.city.charAt(0).toUpperCase() + processedData.city.slice(1);
-  left.appendChild(city);
-
-  const time = document.createElement("p");
-  time.textContent = `${processedData.day} ${processedData.time}`;
-  left.appendChild(time);
+  mainDiv.appendChild(city);
 
   const currentTemperature = document.createElement("p");
   currentTemperature.textContent = `${processedData.temp}${
     currentMetric === "metric" ? "°C" : "°F"
   }`;
-  left.appendChild(currentTemperature);
+  mainDiv.appendChild(currentTemperature);
+
+  const condition = document.createElement("h3");
+  condition.textContent = processedData.currentCondition;
+  mainDiv.appendChild(condition);
+
+  const fromTo = document.createElement("p");
+  fromTo.textContent = `From ${processedData.minTemp}${
+    currentMetric === "metric" ? "°C" : "°F"
+  } to ${processedData.maxTemp}${currentMetric === "metric" ? "°C" : "°F"}`;
+  mainDiv.appendChild(fromTo);
 
   const changeMetric = document.createElement("button");
   changeMetric.textContent = `Change to ${
@@ -96,11 +104,11 @@ function displayLeft(data) {
     displaySite(newData);
   });
 
-  left.appendChild(changeMetric);
+  mainDiv.appendChild(changeMetric);
 }
 
 function rigthElement(icon, title, value) {
-  const right = document.querySelector(".right");
+  const details = document.querySelector(".details");
   const element = document.createElement("div");
 
   const text = document.createElement("div");
@@ -119,12 +127,12 @@ function rigthElement(icon, title, value) {
   element.appendChild(iconElement);
   element.appendChild(text);
 
-  right.appendChild(element);
+  details.appendChild(element);
 }
 
-function displayRight(data) {
-  const right = document.querySelector(".right");
-  right.innerHTML = "";
+function displaydetails(data) {
+  const details = document.querySelector(".details");
+  details.innerHTML = "";
   const processedData = processData(data);
   rigthElement(
     "fa-temperature-high",
@@ -181,10 +189,46 @@ function displayDaily(data) {
   });
 }
 
+function displayForecast(data) {
+  const processedData = processData(data);
+  const forecast = document.querySelector(".forecast");
+  forecast.innerHTML = "";
+  const title = document.createElement("p");
+  title.textContent = processedData.description;
+  const currentHour = new Date().getHours().toLocaleString();
+  const hours = processedData.hours.filter((hour) => {
+    const hourNumber = Number(hour.datetime.split(":")[0]);
+    return hourNumber >= currentHour;
+  });
+  hours.forEach((hour, index) => {
+    const hourDiv = document.createElement("div");
+    hourDiv.classlist = "hour-div";
+
+    const hourName = document.createElement("p");
+    if (index === 0) {
+      hourName.textContent = "Now";
+    } else {
+      hourName.textContent = hour.datetime;
+    }
+
+    hourDiv.appendChild(hourName);
+
+    const icon = document.createElement("img");
+    hourDiv.appendChild(icon);
+
+    const temp = document.createElement("p");
+    temp.textContent = hour.temp;
+    hourDiv.appendChild(temp);
+
+    forecast.appendChild(hourDiv);
+  });
+}
+
 function displaySite(data) {
-  displayLeft(data);
-  displayRight(data);
+  displaymain(data);
+  displaydetails(data);
   displayDaily(data);
+  displayForecast(data);
 }
 
 async function main() {
