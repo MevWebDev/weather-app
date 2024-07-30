@@ -10,7 +10,16 @@ body {
   flex-direction: column;
   #top-content {
     display: flex;
-    width: 90%;
-    justify-content: space-between;
+    width: 80%;
+    justify-content: center;
+    gap: 4rem;
+  }
+  #bot-content {
+    #bot-list {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5rem;
+    }
   }
 }
