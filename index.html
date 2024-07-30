@@ -11,12 +11,24 @@
     ></script>
   </head>
   <body>
-    <div id="top-content">
-      <div class="details"></div>
-      <div class="main"></div>
-      <div class="forecast"></div>
+    <div class="input-wrapper">
+      <input
+        type="text"
+        name=""
+        id="search"
+        placeholder="Search for location"
+      />
+      <button id="submit">
+        <i class="fas fa-search"></i>
+      </button>
     </div>
-    <div id="bot-content">
+
+    <div id="top-content">
+      <div class="details hover"></div>
+      <div class="main hover"></div>
+      <div class="forecast hover"></div>
+    </div>
+    <div id="bot-content" class="hover">
       <p class="title"></p>
       <div id="bot-list"></div>
     </div>
