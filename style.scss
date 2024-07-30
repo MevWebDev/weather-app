@@ -8,13 +8,73 @@ body {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  height: 70vh;
+  gap: 1rem;
   #top-content {
     display: flex;
     width: 80%;
-    justify-content: center;
+    justify-content: space-between;
     gap: 4rem;
+
+    .main {
+      border: 1px solid black;
+      border-radius: 1rem;
+      padding: 3rem 5rem;
+      display: flex;
+      flex-direction: column;
+      height: max-content;
+    }
+    .forecast {
+      display: flex;
+      flex-direction: column;
+      border: 1px solid black;
+      border-radius: 1rem;
+      box-sizing: border-box;
+      padding: 1rem;
+      .forecast-icon {
+        width: 5rem;
+        height: 5rem;
+      }
+      .day {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+      }
+    }
+    .details {
+      display: grid;
+      grid-template-columns: repeat(2, 150px);
+      grid-template-rows: repeat(2, 150px);
+      gap: 1rem;
+      box-sizing: border-box;
+      .detail-element {
+        border-radius: 1rem;
+        border: 1px solid black;
+        display: flex;
+        padding: 1rem;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 0.5rem;
+        .text {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          p {
+            text-align: center;
+            margin: 0.5rem;
+          }
+        }
+      }
+    }
   }
   #bot-content {
+    border: 1px solid black;
+    border-radius: 1rem;
+    box-sizing: border-box;
+    padding: 1rem;
     #bot-list {
       display: flex;
       align-items: center;
