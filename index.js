@@ -1,4 +1,11 @@
 let currentMetric = "metric";
+let currentCity = "Tokyo";
+async function searchCity() {
+  const input = document.querySelector("#search");
+  currentCity = input.value;
+  const data = await getWeatherData(currentCity, currentMetric);
+  displaySite(data);
+}
 function dateToDay(date) {
   const days = [
     "Sunday",
@@ -13,11 +20,8 @@ function dateToDay(date) {
 }
 
 function processData(data) {
-  const now = new Date();
-  const hours = String(now.getHours()).padStart(2, "0");
-  const minutes = String(now.getMinutes()).padStart(2, "0");
-  const currentTime = `${hours}:${minutes}`;
-
+  const currentTime = `${data.currentConditions.datetime.split(":")[0]}:00`;
+  console.log(currentTime);
   const processedData = {
     currentCondition: data.currentConditions.conditions,
     city: data.address,
@@ -50,10 +54,10 @@ function processDailyData(data) {
 
   return processedData;
 }
-async function getWeatherData(metric = "metric") {
+async function getWeatherData(city = "Tokyo", metric = "metric") {
   try {
     const response = await fetch(
-      `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/tokyo?unitGroup=${metric}&key=PEMYDAUJ7DTAG9KNEWKLR4DX5&contentType=json`,
+      `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}?unitGroup=${metric}&key=PEMYDAUJ7DTAG9KNEWKLR4DX5&contentType=json`,
       { mode: "cors" }
     );
     const data = await response.json();
@@ -69,11 +73,13 @@ function displaymain(data) {
   mainDiv.innerHTML = "";
 
   const city = document.createElement("p");
+  city.classList.add("city");
   city.textContent =
     processedData.city.charAt(0).toUpperCase() + processedData.city.slice(1);
   mainDiv.appendChild(city);
 
   const currentTemperature = document.createElement("p");
+  currentTemperature.classList.add("current-temperature");
   currentTemperature.textContent = `${processedData.temp}${
     currentMetric === "metric" ? "°C" : "°F"
   }`;
@@ -100,7 +106,7 @@ function displaymain(data) {
       currentMetric = "metric";
     }
 
-    const newData = await getWeatherData(currentMetric);
+    const newData = await getWeatherData(currentCity, currentMetric);
     displaySite(newData);
   });
 
@@ -163,7 +169,7 @@ function dayDiv(dayName, temp, minTemp, icon) {
   const dayTemperature = document.createElement("p");
   dayTemperature.textContent = ` ${temp}${
     currentMetric === "metric" ? "°C" : "°F"
-  } -> ${minTemp}${currentMetric === "metric" ? "°C" : "°F"}`;
+  }   —   ${minTemp}${currentMetric === "metric" ? "°C" : "°F"}`;
   day.appendChild(dayTemperature);
 
   const dayIcon = document.createElement("i");
@@ -193,7 +199,7 @@ function displayForecast(data) {
   const title = document.querySelector(".title");
   title.textContent = processedData.description;
 
-  const currentHour = new Date().getHours().toLocaleString();
+  const currentHour = processedData.time.split(":")[0];
   const hours = processedData.hours.filter((hour) => {
     const hourNumber = Number(hour.datetime.split(":")[0]);
     return hourNumber >= currentHour;
@@ -205,6 +211,7 @@ function displayForecast(data) {
     const hourName = document.createElement("p");
     if (index === 0) {
       hourName.textContent = "Now";
+      setTimeout(() => hourDiv.scrollIntoView(), 0);
     } else {
       hourName.textContent = hour.datetime;
     }
@@ -234,6 +241,8 @@ function displaySite(data) {
 async function main() {
   const data = await getWeatherData();
   displaySite(data);
+  const search = document.querySelector("#submit");
+  search.addEventListener("click", searchCity);
 }
 
 main();
