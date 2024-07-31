@@ -1,5 +1,19 @@
 let currentMetric = "metric";
 let currentCity = "gdansk";
+
+const scrollable = document.querySelector("#bot-list");
+scrollable.addEventListener(
+  "wheel",
+  (e) => {
+    if (e.wheelDelta > 0) {
+      scrollable.scrollLeft -= 50;
+    } else {
+      scrollable.scrollLeft += 50;
+    }
+  },
+  { passive: true }
+);
+
 async function searchCity() {
   const input = document.querySelector("#search");
   currentCity = input.value;
