@@ -38,6 +38,7 @@ function processData(data) {
     maxTemp: data.days[0].tempmax,
     description: data.description,
     hours: data.days[0].hours,
+    icon: data.currentConditions.icon,
   };
 
   return processedData;
@@ -84,6 +85,11 @@ function displaymain(data) {
     currentMetric === "metric" ? "°C" : "°F"
   }`;
   mainDiv.appendChild(currentTemperature);
+
+  const icon = document.createElement("img");
+  icon.id = "main-icon";
+  icon.src = `./assets/${processedData.icon}.svg`;
+  mainDiv.appendChild(icon);
 
   const condition = document.createElement("h3");
   condition.textContent = processedData.currentCondition;
@@ -150,7 +156,7 @@ function displaydetails(data) {
   rigthElement("fa-tint", "Humidity", `${processedData.humidity}%`);
   rigthElement(
     "fa-cloud-showers-heavy",
-    "Chance of rain",
+    "Rain",
     `${processedData.chanceOfRain}%`
   );
   rigthElement(
