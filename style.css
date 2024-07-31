@@ -66,6 +66,16 @@ body #top-content .main {
   align-items: center;
   text-align: center;
   background: rgba(255, 255, 255, 0.2);
+  gap: 1rem;
+}
+body #top-content .main > * {
+  margin: 0;
+}
+body #top-content .main #main-icon {
+  display: flex;
+  padding: 1rem;
+  width: 5rem;
+  height: 5rem;
 }
 body #top-content .main .city {
   font-size: 2rem;
