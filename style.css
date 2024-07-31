@@ -155,10 +155,14 @@ body #bot-content #bot-list {
   display: flex;
   align-items: center;
   gap: 5rem;
-  overflow-x: auto;
+  overflow-x: scroll;
 }
 body #bot-content #bot-list::-webkit-scrollbar {
-  display: none;
+  height: 5px;
+}
+body #bot-content #bot-list::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 1rem;
 }
 body #bot-content #bot-list div {
   display: flex;
