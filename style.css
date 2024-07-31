@@ -101,15 +101,17 @@ body #top-content .forecast {
   flex-direction: column;
   background: rgba(255, 255, 255, 0.2);
   border-radius: 1rem;
-  box-sizing: border-box;
   width: 300px;
   align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
 }
-body #top-content .forecast .forecast-icon {
-  width: 5rem;
-  height: 5rem;
+body #top-content .forecast .day-icon {
+  width: 2rem;
+  height: 2rem;
 }
 body #top-content .forecast .day {
+  width: 90%;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -147,7 +149,7 @@ body #bot-content {
   border-radius: 1rem;
   box-sizing: border-box;
   padding: 1rem;
-  max-width: 80%;
+  width: 80%;
 }
 body #bot-content #bot-list {
   display: flex;
@@ -157,4 +159,14 @@ body #bot-content #bot-list {
 }
 body #bot-content #bot-list::-webkit-scrollbar {
   display: none;
+}
+body #bot-content #bot-list div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+body #bot-content #bot-list .hour-icon {
+  width: 2.5rem;
+  height: 2.5rem;
 }/*# sourceMappingURL=style.css.map */

@@ -1,10 +1,25 @@
 let currentMetric = "metric";
-let currentCity = "Tokyo";
+let currentCity = "gdansk";
 async function searchCity() {
   const input = document.querySelector("#search");
   currentCity = input.value;
   const data = await getWeatherData(currentCity, currentMetric);
   displaySite(data);
+}
+function take24hours(currentHour, data) {
+  const hours = [];
+  let i = 24;
+  const hoursToday = data.days[0].hours.filter((hour) => {
+    const hourNumber = Number(hour.datetime.split(":")[0]);
+    return hourNumber >= currentHour;
+  });
+  i -= hoursToday.length;
+  hours.push(hoursToday);
+  const hoursTomorrow = data.days[1].hours.slice(0, i + 1);
+  hours.push(hoursTomorrow);
+  console.log(hours.flat());
+  const flatHours = hours.flat();
+  return flatHours;
 }
 function dateToDay(date) {
   const days = [
@@ -51,11 +66,12 @@ function processDailyData(data) {
     maxTemp: data.tempmax,
     temp: data.temp,
     feelsLike: data.feelslike,
+    icon: data.icon,
   };
 
   return processedData;
 }
-async function getWeatherData(city = "Tokyo", metric = "metric") {
+async function getWeatherData(city = "gdansk", metric = "metric") {
   try {
     const response = await fetch(
       `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}?unitGroup=${metric}&key=PEMYDAUJ7DTAG9KNEWKLR4DX5&contentType=json`,
@@ -177,9 +193,9 @@ function dayDiv(dayName, temp, minTemp, icon) {
     currentMetric === "metric" ? "°C" : "°F"
   }   —   ${minTemp}${currentMetric === "metric" ? "°C" : "°F"}`;
   day.appendChild(dayTemperature);
-
-  const dayIcon = document.createElement("i");
-  dayIcon.classList.add("fas", icon);
+  const dayIcon = document.createElement("img");
+  dayIcon.classList.add("day-icon");
+  dayIcon.src = `./assets/${icon}.svg`;
   day.appendChild(dayIcon);
 
   return day;
@@ -206,10 +222,7 @@ function displayForecast(data) {
   title.textContent = processedData.description;
 
   const currentHour = processedData.time.split(":")[0];
-  const hours = processedData.hours.filter((hour) => {
-    const hourNumber = Number(hour.datetime.split(":")[0]);
-    return hourNumber >= currentHour;
-  });
+  const hours = take24hours(currentHour, data);
   hours.forEach((hour, index) => {
     const hourDiv = document.createElement("div");
     hourDiv.classlist = "hour-div";
@@ -225,6 +238,8 @@ function displayForecast(data) {
     hourDiv.appendChild(hourName);
 
     const icon = document.createElement("img");
+    icon.classList.add("hour-icon");
+    icon.src = `./assets/${hour.icon}.svg`;
     hourDiv.appendChild(icon);
 
     const temp = document.createElement("p");

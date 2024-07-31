@@ -102,14 +102,19 @@ body {
       flex-direction: column;
       background: rgba(255, 255, 255, 0.2);
       border-radius: 1rem;
-      box-sizing: border-box;
+
       width: 300px;
       align-items: center;
-      .forecast-icon {
-        width: 5rem;
-        height: 5rem;
+      justify-content: center;
+      padding: 0.5rem;
+
+      .day-icon {
+        width: 2rem;
+        height: 2rem;
       }
       .day {
+        width: 90%;
+
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -149,7 +154,7 @@ body {
     border-radius: 1rem;
     box-sizing: border-box;
     padding: 1rem;
-    max-width: 80%;
+    width: 80%;
 
     #bot-list {
       display: flex;
@@ -159,6 +164,16 @@ body {
       overflow-x: auto;
       &::-webkit-scrollbar {
         display: none;
+      }
+      div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+      }
+      .hour-icon {
+        width: 2.5rem;
+        height: 2.5rem;
       }
     }
   }
