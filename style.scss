@@ -166,6 +166,9 @@ body {
         justify-content: space-between;
         gap: 1rem;
         font-size: 1rem;
+        @media (max-width: 768px) {
+          font-size: 0.8rem;
+        }
       }
     }
     .details {
