@@ -168,13 +168,13 @@ body #top-content .forecast .day {
   width: 90%;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
+  justify-content: space-around;
+  gap: 0.5rem;
   font-size: 1rem;
 }
 @media (max-width: 768px) {
   body #top-content .forecast .day {
-    font-size: 0.8rem;
+    font-size: 1rem;
   }
 }
 body #top-content .details {
@@ -209,19 +209,26 @@ body #bot-content {
   border-radius: 1rem;
   box-sizing: border-box;
   padding: 1rem;
-  width: 80%;
+  width: 71%;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
+@media (max-width: 768px) {
+  body #bot-content {
+    width: 80%;
+    margin-bottom: 2rem;
+  }
+}
 body #bot-content #bot-list {
   display: flex;
-  gap: 5rem;
+  gap: 4rem;
   overflow-x: scroll;
 }
 @media (max-width: 768px) {
   body #bot-content #bot-list {
     gap: 2rem;
+    font-size: 0.8rem;
   }
 }
 body #bot-content #bot-list::-webkit-scrollbar {
@@ -245,4 +252,10 @@ body #bot-content #bot-list div {
 body #bot-content #bot-list .hour-icon {
   width: 2.5rem;
   height: 2.5rem;
+}
+@media (max-width: 768px) {
+  body #bot-content #bot-list .hour-icon {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
 }/*# sourceMappingURL=style.css.map */
