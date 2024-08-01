@@ -209,9 +209,9 @@ function dayDiv(dayName, temp, minTemp, icon) {
   dayNameElement.textContent = dayName;
   day.appendChild(dayNameElement);
   const dayTemperature = document.createElement("p");
-  dayTemperature.textContent = ` ${temp}${
+  dayTemperature.textContent = ` ${Math.round(temp)}${
     currentMetric === "metric" ? "°C" : "°F"
-  }   —   ${minTemp}${currentMetric === "metric" ? "°C" : "°F"}`;
+  }   —   ${Math.round(minTemp)}${currentMetric === "metric" ? "°C" : "°F"}`;
   day.appendChild(dayTemperature);
   const dayIcon = document.createElement("img");
   dayIcon.classList.add("day-icon");
@@ -256,7 +256,7 @@ function displayForecast(data) {
       hourName.textContent = "Now";
       setTimeout(() => hourDiv.scrollIntoView(), 0);
     } else {
-      hourName.textContent = hour.datetime;
+      hourName.textContent = hour.datetime.split(":")[0];
     }
 
     hourDiv.appendChild(hourName);
@@ -267,7 +267,7 @@ function displayForecast(data) {
     hourDiv.appendChild(icon);
 
     const temp = document.createElement("p");
-    temp.textContent = `${hour.temp}${
+    temp.textContent = `${Math.round(hour.temp)}${
       currentMetric === "metric" ? "°C" : "°F"
     }`;
     hourDiv.appendChild(temp);
