@@ -1,11 +1,8 @@
 let currentMetric = "metric";
 let currentCity = "gdansk";
-
-window.onload = () => {
-  setTimeout(() => {
-    window.scrollTo(0, 0);
-  }, 0);
-};
+if ("scrollRestoration" in history) {
+  history.scrollRestoration = "manual";
+}
 
 const scrollable = document.querySelector("#bot-list");
 scrollable.addEventListener(
@@ -99,6 +96,7 @@ async function getWeatherData(city = "gdansk", metric = "metric") {
     );
     const data = await response.json();
     console.log(data);
+
     window.scrollTo(0, 0);
     return data;
   } catch (error) {
