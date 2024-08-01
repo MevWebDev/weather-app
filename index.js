@@ -99,6 +99,7 @@ async function getWeatherData(city = "gdansk", metric = "metric") {
     );
     const data = await response.json();
     console.log(data);
+    window.scrollTo(0, 0);
     return data;
   } catch (error) {
     console.log(error);
@@ -285,6 +286,7 @@ function displaySite(data) {
 
 async function main() {
   const data = await getWeatherData();
+
   displaySite(data);
   const search = document.querySelector("#submit");
   search.addEventListener("click", searchCity);
