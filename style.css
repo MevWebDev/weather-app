@@ -223,7 +223,7 @@ body #bot-content {
 body #bot-content #bot-list {
   display: flex;
   gap: 4rem;
-  overflow-x: scroll;
+  overflow-x: auto;
 }
 @media (max-width: 768px) {
   body #bot-content #bot-list {

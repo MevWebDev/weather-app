@@ -215,7 +215,7 @@ body {
     #bot-list {
       display: flex;
       gap: 4rem;
-      overflow-x: scroll;
+      overflow-x: auto;
 
       @media (max-width: 768px) {
         gap: 2rem;
