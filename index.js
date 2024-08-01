@@ -220,6 +220,10 @@ function displayDaily(data) {
   forecast.innerHTML = "";
   const { days } = data;
   const slicedDays = days.slice(1, 7);
+  const title = document.createElement("p");
+  title.textContent = "Forecast for 6 days";
+  forecast.appendChild(title);
+  title.classList.add("forecast-title");
 
   const processedDays = slicedDays.map((day) => processDailyData(day));
   processedDays.forEach((day) => {
