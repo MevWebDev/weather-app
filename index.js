@@ -2,7 +2,9 @@ let currentMetric = "metric";
 let currentCity = "gdansk";
 
 window.onload = () => {
-  window.scrollTo(0, 0);
+  setTimeout(() => {
+    window.scrollTo(0, 0);
+  }, 0);
 };
 
 const scrollable = document.querySelector("#bot-list");
