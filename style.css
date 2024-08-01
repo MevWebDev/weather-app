@@ -7,11 +7,40 @@ body {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  height: 100vh;
+  min-height: 100vh;
   font-weight: 500;
   gap: 2rem;
   background: linear-gradient(0deg, rgb(13, 13, 167) 0%, rgb(0, 212, 255) 100%);
   color: white;
+}
+body .main {
+  order: 2;
+}
+body .bot-content {
+  order: 4;
+}
+body .forecast {
+  order: 3;
+}
+body .details {
+  order: 1;
+}
+@media (max-width: 768px) {
+  body {
+    justify-content: flex-start;
+  }
+  body .main {
+    order: 1;
+  }
+  body .bot-content {
+    order: 2;
+  }
+  body .forecast {
+    order: 3;
+  }
+  body .details {
+    order: 4;
+  }
 }
 body .input-wrapper {
   display: flex;
@@ -20,6 +49,12 @@ body .input-wrapper {
   gap: 1rem;
   position: relative;
   width: 40%;
+}
+@media (max-width: 768px) {
+  body .input-wrapper {
+    width: 80%;
+    margin-top: 2rem;
+  }
 }
 body #search {
   border: none;
@@ -55,6 +90,21 @@ body #top-content {
   width: 80%;
   justify-content: space-around;
   align-items: center;
+}
+@media (max-width: 768px) {
+  body #top-content {
+    flex-direction: column;
+    gap: 2rem;
+  }
+  body #top-content .details {
+    order: 3;
+  }
+  body #top-content .main {
+    order: 1;
+  }
+  body #top-content .forecast {
+    order: 2;
+  }
 }
 body #top-content .main {
   border-radius: 1rem;
@@ -106,6 +156,10 @@ body #top-content .forecast {
   justify-content: center;
   padding: 0.5rem;
 }
+body #top-content .forecast .forecast-title {
+  font-size: 1.3rem;
+  margin: 1rem;
+}
 body #top-content .forecast .day-icon {
   width: 2rem;
   height: 2rem;
@@ -116,6 +170,12 @@ body #top-content .forecast .day {
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
+}
+@media (max-width: 768px) {
+  body #top-content .forecast .day {
+    gap: 1rem;
+    font-size: 0.9rem;
+  }
 }
 body #top-content .details {
   display: grid;
@@ -150,12 +210,19 @@ body #bot-content {
   box-sizing: border-box;
   padding: 1rem;
   width: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 body #bot-content #bot-list {
   display: flex;
-  align-items: center;
   gap: 5rem;
   overflow-x: scroll;
+}
+@media (max-width: 768px) {
+  body #bot-content #bot-list {
+    gap: 2rem;
+  }
 }
 body #bot-content #bot-list::-webkit-scrollbar {
   height: 5px;
@@ -169,6 +236,11 @@ body #bot-content #bot-list div {
   flex-direction: column;
   align-items: center;
   gap: 1rem;
+}
+@media (max-width: 768px) {
+  body #bot-content #bot-list div {
+    gap: 0;
+  }
 }
 body #bot-content #bot-list .hour-icon {
   width: 2.5rem;

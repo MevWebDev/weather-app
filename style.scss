@@ -7,8 +7,35 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  .main {
+    order: 2;
+  }
+  .bot-content {
+    order: 4;
+  }
+  .forecast {
+    order: 3;
+  }
+  .details {
+    order: 1;
+  }
+  @media (max-width: 768px) {
+    justify-content: flex-start;
+    .main {
+      order: 1;
+    }
+    .bot-content {
+      order: 2;
+    }
+    .forecast {
+      order: 3;
+    }
+    .details {
+      order: 4;
+    }
+  }
   flex-direction: column;
-  height: 100vh;
+  min-height: 100vh;
   font-weight: 500;
   gap: 2rem;
   background: linear-gradient(
@@ -25,6 +52,10 @@ body {
     gap: 1rem;
     position: relative;
     width: 40%;
+    @media (max-width: 768px) {
+      width: 80%;
+      margin-top: 2rem;
+    }
   }
   #search {
     border: none;
@@ -58,6 +89,19 @@ body {
     width: 80%;
     justify-content: space-around;
     align-items: center;
+    @media (max-width: 768px) {
+      flex-direction: column;
+      gap: 2rem;
+      .details {
+        order: 3;
+      }
+      .main {
+        order: 1;
+      }
+      .forecast {
+        order: 2;
+      }
+    }
     .main {
       border-radius: 1rem;
       padding: 3rem 5rem;
@@ -107,18 +151,24 @@ body {
       align-items: center;
       justify-content: center;
       padding: 0.5rem;
-
+      .forecast-title {
+        font-size: 1.3rem;
+        margin: 1rem;
+      }
       .day-icon {
         width: 2rem;
         height: 2rem;
       }
       .day {
         width: 90%;
-
         display: flex;
         align-items: center;
         justify-content: space-between;
         gap: 1rem;
+        @media (max-width: 768px) {
+          gap: 1rem;
+          font-size: 0.9rem;
+        }
       }
     }
     .details {
@@ -155,13 +205,18 @@ body {
     box-sizing: border-box;
     padding: 1rem;
     width: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 
     #bot-list {
       display: flex;
-      align-items: center;
-
       gap: 5rem;
       overflow-x: scroll;
+
+      @media (max-width: 768px) {
+        gap: 2rem;
+      }
       &::-webkit-scrollbar {
         height: 5px;
       }
@@ -174,6 +229,9 @@ body {
         flex-direction: column;
         align-items: center;
         gap: 1rem;
+        @media (max-width: 768px) {
+          gap: 0;
+        }
       }
       .hour-icon {
         width: 2.5rem;
