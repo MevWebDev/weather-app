@@ -101,7 +101,7 @@ async function getWeatherData(city = "gdansk", metric = "metric") {
     );
     const data = await response.json();
     console.log(data);
-
+    window.scrollTo(0, 0);
     return data;
   } catch (error) {
     console.log(error);
@@ -284,6 +284,7 @@ function displaySite(data) {
   displaydetails(data);
   displayDaily(data);
   displayForecast(data);
+  window.scrollTo(0, 0);
 }
 
 async function main() {
