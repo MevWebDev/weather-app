@@ -1,8 +1,5 @@
 let currentMetric = "metric";
 let currentCity = "gdansk";
-window.addEventListener("scroll", () => {
-  console.log(window.scrollY);
-});
 
 const skeletons = document.querySelectorAll(".skeleton");
 
@@ -36,7 +33,6 @@ function take24hours(currentHour, data) {
   hours.push(hoursToday);
   const hoursTomorrow = data.days[1].hours.slice(0, i + 1);
   hours.push(hoursTomorrow);
-  console.log(hours.flat());
   const flatHours = hours.flat();
   return flatHours;
 }
@@ -55,7 +51,6 @@ function dateToDay(date) {
 
 function processData(data) {
   const currentTime = `${data.currentConditions.datetime.split(":")[0]}:00`;
-  console.log(currentTime);
   const processedData = {
     currentCondition: data.currentConditions.conditions,
     city: data.address,
@@ -97,7 +92,6 @@ async function getWeatherData(city = "gdansk", metric = "metric") {
       { mode: "cors" }
     );
     const data = await response.json();
-    console.log(data);
     setTimeout(() => {
       window.scrollTo(0, 0);
     }, 0);
