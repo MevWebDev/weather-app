@@ -118,6 +118,12 @@ body #top-content .main {
   background: rgba(255, 255, 255, 0.2);
   gap: 1rem;
 }
+@media (max-width: 768px) {
+  body #top-content .main {
+    padding: 1.5rem 2.5rem;
+    gap: 0.6rem;
+  }
+}
 body #top-content .main > * {
   margin: 0;
 }
@@ -223,7 +229,7 @@ body #bot-content {
 body #bot-content #bot-list {
   display: flex;
   gap: 4rem;
-  overflow-x: auto;
+  overflow-x: scroll;
 }
 @media (max-width: 768px) {
   body #bot-content #bot-list {

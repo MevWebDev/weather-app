@@ -112,6 +112,10 @@ body {
       text-align: center;
       background: rgba(255, 255, 255, 0.2);
       gap: 1rem;
+      @media (max-width: 768px) {
+        padding: 1.5rem 2.5rem;
+        gap: 0.6rem;
+      }
       > * {
         margin: 0;
       }
@@ -215,7 +219,7 @@ body {
     #bot-list {
       display: flex;
       gap: 4rem;
-      overflow-x: auto;
+      overflow-x: scroll;
 
       @media (max-width: 768px) {
         gap: 2rem;

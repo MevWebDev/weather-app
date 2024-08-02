@@ -1,13 +1,8 @@
 let currentMetric = "metric";
 let currentCity = "gdansk";
-if ("scrollRestoration" in history) {
-  history.scrollRestoration = "manual";
-}
-window.onload = () => {
-  setTimeout(() => {
-    window.scrollTo(0, 0);
-  }, 100); // Adjust delay as needed
-};
+window.addEventListener("scroll", () => {
+  console.log(window.scrollY);
+});
 
 const scrollable = document.querySelector("#bot-list");
 scrollable.addEventListener(
@@ -101,7 +96,9 @@ async function getWeatherData(city = "gdansk", metric = "metric") {
     );
     const data = await response.json();
     console.log(data);
-    window.scrollTo(0, 0);
+    setTimeout(() => {
+      window.scrollTo(0, 0);
+    }, 0);
     return data;
   } catch (error) {
     console.log(error);
@@ -276,6 +273,7 @@ function displayForecast(data) {
     hourDiv.appendChild(temp);
 
     botList.appendChild(hourDiv);
+    window.scrollTo(0, 0);
   });
 }
 
@@ -284,7 +282,9 @@ function displaySite(data) {
   displaydetails(data);
   displayDaily(data);
   displayForecast(data);
-  window.scrollTo(0, 0);
+  setTimeout(() => {
+    window.scrollTo(0, 0);
+  }, 0);
 }
 
 async function main() {
