@@ -4,6 +4,8 @@ window.addEventListener("scroll", () => {
   console.log(window.scrollY);
 });
 
+const skeletons = document.querySelectorAll(".skeleton");
+
 const scrollable = document.querySelector("#bot-list");
 scrollable.addEventListener(
   "wheel",
@@ -284,6 +286,9 @@ function displaySite(data) {
   displayForecast(data);
   setTimeout(() => {
     window.scrollTo(0, 0);
+    skeletons.forEach((skeleton) => {
+      skeleton.classList.remove("skeleton");
+    });
   }, 0);
 }
 
